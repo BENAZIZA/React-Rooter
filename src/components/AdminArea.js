@@ -1,44 +1,30 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Redirect } from 'react-router-dom';
-
-class AdminArea extends React.Component {
-
-  constructor() {
-    super();
-
-    this.state = {
+    const AdminArea =(props)=>
+    {
+    const [redirectRef,setRedirectRef]=useState({
       redirectToReferrer: false
-    }
-    // binding 'this'
-    this.login = this.login.bind(this);
-  }
-
-  login() {
-
+    })
+    
+    const login = () => {
     fakeAuth.authenticate(() => {
-      this.setState({ redirectToReferrer: true })
+       setRedirectRef ({ redirectToReferrer: true })
     })
   }
-
-  render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
-    const { redirectToReferrer } = this.state;
-
+    const { from } = props.location.redirectRef || { from: { pathname: '/Admin' } }
+    const { redirectToReferrer } = redirectRef;
     if (redirectToReferrer) {
       return (
         <Redirect to={from} />
       )
     }
-
     return (
       <div>
         <p>You must log in to view the page at {from.pathname}</p>
-        <button onClick={this.login}>Log in</button>
+        <button onClick={login}>Log in</button>
       </div>
     )
   }
-}
-
 export const fakeAuth = {
 
   isAuthenticated: false,

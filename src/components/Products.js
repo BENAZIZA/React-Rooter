@@ -1,9 +1,6 @@
 import React from 'react'
-import { BrowserRouter,Link, Route, Switch } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import Product from './Product'
-
-
-
 const Products =({match})=>
 {
 	const productsData = [
@@ -33,11 +30,10 @@ const Products =({match})=>
   description: 'Ut hendrerit venenatis lacus, vel lacinia ipsum fermentum vel. Cras.',
   status: 'Out of Stock'
 },
-
 ];
 var linkList = productsData.map( (product) => {
     return(
-      <li>
+      <li key={product.id}>
         <Link to={`${match.url}/${product.id}`}>
           {product.name}
         </Link>
